@@ -24,13 +24,11 @@
                             <p class="card-text">@Model.Description</p>
                             <p class="card-text">
                                 <b>Cinema: </b>
-                                @Model.Cinema.Name
-                                 <a asp-controller="Cinemas" asp-action="Details" asp-route-id="@Model.CinemaId"></a>
+                                 <a asp-controller="Cinemas" asp-action="Details" asp-route-id="@Model.CinemaId">@Model.Cinema.Name</a>
                             </p>
                             <p class="card-text">
                                 <b>Producer: </b>
-                                @*@Model.Producer.FullName*@ hard code
-                                 <a asp-controller="Producers" asp-action="Details" asp-route-id="@Model.ProducerId"></a>
+                                 <a asp-controller="Producers" asp-action="Details" asp-route-id="@Model.ProducerId">@Model.Producer.FullName</a>
                             </p>
                             <p class="card-text"><b>Category: </b>@Model.MovieCategory</p>
                             <p class="card-text"><b>Category: </b>@Model.MovieCategory</p>
@@ -50,20 +48,21 @@
                                 <span class="badge bg-primary text-white">UPCOMING</span>
                                 }
                             </p>
-                            <p class"card-text"> 
-                                <b>Actors: </b>s
-                                <hr />
-                                <div class="row">
-                                    @foreach(var actor in Model.Actor_Movies)
-                                    {
-                                        <di class="column text-center">
-                                            <img class="border-info rounded-circle" src="@actor.Actor.ProfilePictureUrl" style="max-width: 150px;"/>
-                                            <br />
-                                            <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Actor.Id">@actor.Actor.FullName</a>
-                                        </di>
-                                    }
-                                </div>
-                            </p>
+                             <p class="card-text">
+                            <b>Actors: </b>
+                            <hr />
+                            <div class="row">
+                                @foreach (var actor in Model.Actor_Movies)
+                                {
+                                    <div class="column col-sm text-center">
+                                        <img class="border-info rounded-circle" src="@actor.Actor.ProfilePictureUrl" style="max-width: 150px" />
+                                        <br />
+                                        <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.ActorId">@actor.Actor.FullName</a>
+                                    </div>
+                                }
+                            </div>
+                        </p>
+
                         </div>
                     </div>
                     <div class="col-md-12">
