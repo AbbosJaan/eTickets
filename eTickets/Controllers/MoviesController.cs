@@ -64,13 +64,27 @@ namespace eTickets.Controllers
             var movieDetail = await _service.GetMovieByIdAsync(id);
             if(movieDetail == null) return View("NotFound");
 
+            var response = new NewMovieVM()
+            {
+                Id = movieDetail.Id,
+                Name = movieDetail.Name,
+                Description = movieDetail.Description,
+                Price = movieDetail.Price,
+                ImageURL = movieDetail.ImageURL,
+                StartDate = movieDetail.StartDate,
+                EndDate = movieDetail.EndDate,
+                MovieCategory = movieDetail.MovieCategory,
+                ActorIds = movieDetail.Actor_Movies.Select(n => n.ActorId).ToList(),
+                ProducerId = movieDetail.ProducerId,
+                CinemaId = movieDetail.CinemaId,
+            };
             var movieDropdonwsData = await _service.GetNewMovieDropdownsValues();
 
             ViewBag.Cinemas = new SelectList(movieDropdonwsData.Cinemas, "Id", "Name");
             ViewBag.Producers = new SelectList(movieDropdonwsData.Producers, "Id", "FullName");
             ViewBag.Actors = new SelectList(movieDropdonwsData.Actors, "Id", "FullName");
 
-            return View();
+            return View(response);
         }
 
         [HttpPost]
