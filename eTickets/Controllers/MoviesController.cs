@@ -1,5 +1,6 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
+using eTickets.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,23 @@ namespace eTickets.Controllers
 
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(NewMovieVM movie)
+        {
+            if (!ModelState.IsValid)
+            {
+                var movieDropdonwsData = await _service.GetNewMovieDropdownsValues();
+
+                ViewBag.Cinemas = new SelectList(movieDropdonwsData.Cinemas, "Id", "Name");
+                ViewBag.Producers = new SelectList(movieDropdonwsData.Producers, "Id", "FullName");
+                ViewBag.Actors = new SelectList(movieDropdonwsData.Actors, "Id", "FullName");
+
+                return View(movie);
+            }
+            await _service.AddNewMovieAsync(movie);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
