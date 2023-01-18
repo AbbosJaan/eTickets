@@ -2,7 +2,7 @@
 
 namespace eTickets.Models
 {
-    public class ShoppingCardItem
+    public class ShoppingCartItem
     {
         [Key]
         public int Id { get; set; }
