@@ -24,8 +24,8 @@ namespace eTickets.Data.Cart
         }
         public void AddItemCart(Movie movie)
         {
-            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
-            if(shoppingCartItem == null)
+            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Movie.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
+            if (shoppingCartItem == null)
             {
                 shoppingCartItem = new ShoppingCartItem()
                 {
@@ -39,12 +39,12 @@ namespace eTickets.Data.Cart
             else
             {
                 shoppingCartItem.Amount++;
-                _context.SaveChanges();
             }
+            _context.SaveChanges();
         }
         public void RemoveItemFromCart(Movie movie)
         {
-            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
+            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Movie.Id == movie.Id && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem != null)
             {
                 if(shoppingCartItem.Amount > 1)
