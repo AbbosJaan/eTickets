@@ -60,9 +60,22 @@ namespace eTickets.Data.Cart
         }
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
-            return ShoppingCardItems ?? (ShoppingCardItems = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.Movie).ToList());
+            return ShoppingCardItems ?? (ShoppingCardItems = _context.ShoppingCartItems
+                .Where(n => n.ShoppingCartId == ShoppingCartId)
+                .Include(n => n.Movie).ToList());
         }
-        public double GetShoppingCartTotal() => _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Movie.Price * n.Amount).Sum();
-         
+        public double GetShoppingCartTotal() => _context.ShoppingCartItems
+            .Where(n => n.ShoppingCartId == ShoppingCartId)
+            .Select(n => n.Movie.Price * n.Amount).Sum();
+
+        public async Task ClearShoppingCartAsync()
+        {
+            var items = await _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToListAsync();
+            _context.ShoppingCartItems.RemoveRange(items);
+            await _context.SaveChangesAsync(); 
+
+        }
+
+
     }
 }
