@@ -20,6 +20,12 @@ else
         </button>
         <ul class="dropdown-menu" arei-labelledy="profile-btn">
             <li>
+                @if(User.IsInRole("Admin"))
+                {
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Users">
+                        <i class="bi bi-people"></i> Users 
+                    </a>
+                }
                 <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
                     <i class="bi bi-list"></i> Orders 
                 </a>
