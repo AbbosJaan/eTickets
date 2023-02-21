@@ -47,8 +47,6 @@ namespace eTickets.Controllers
             ViewBag.Producers = new SelectList(movieDropdonwsData.Producers, "Id", "FullName");
             ViewBag.Actors = new SelectList(movieDropdonwsData.Actors, "Id", "FullName");
 
-
-
             return View();
         }
 
